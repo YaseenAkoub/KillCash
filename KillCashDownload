@@ -1,0 +1,141 @@
+options:
+	# ===================== #
+	# (!) MAIN SETTINGS (!) #
+	# ===================== #
+	earn cash on kill: yes
+	loose cash on death: no
+
+	# ================ #
+	# (!) MESSAGES (!) #
+	# ================ #
+	prefix: &7[&bKill&fCash&7]
+	permission message: &bYou don't have permission to do this!
+	reload message: &bThe plugin &fKillCash &bhas been reloaded! &8[&7Version {@version}&8]
+
+
+	# ==================== #
+	# (!) HELP MESSAGE (!) #
+	# ==================== #
+	help-header: &3&m---------&r &bKillCash Help &f1 &3&m---------&r
+	help-line-1: 
+	help-line-2: &3&l* &f/KillCash Info &7- &bDisplay Author and Version!
+	help-line-3: &3&l* &f/KillCash Help &7- &bDisplay Help Message!
+	help-line-4: &3&l* &f/KillCash Reload &7- &bReload The Plugin!
+	
+
+	# ================================== #
+	# (!) EARN CASH PER KILL OPTIONS (!) #
+	# ================================== #
+	how much should a player earn per kill: 20
+	kill message: &bYou received &f{@k amount} &bfor killing &f%victim%&b!
+	
+	
+	# =================================== #
+	# (!) LOOSE CASH ON DEATH OPTIONS (!) #
+	# =================================== #
+	how much should a player loose on death: 15
+	death message: &f%attacker% &bkilled you and you lost {@d amount}!
+	
+	
+	# ===================== #
+	# (!) OTHER OPTIONS (!) #
+	# ===================== #
+	version: 1.0
+	author: BlueOrolose
+	skript file name: KillCash.sk
+
+
+
+
+
+
+
+
+
+	# ======================================================= #
+	# (!) YOU'RE ALL SET! THAT WAS ALL YOU NEEDED TO EDIT (!) #
+	# ======================================================= #
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	k amount: {@how much should a player earn per kill}
+	d amount: {@how much should a player loose on death}
+
+on death:
+    if attacker is a player:
+        if {@earn cash on kill} is "yes", "true", "on" or "do":
+			add {@how much should a player earn per kill} to attacker's balance
+			send "{@prefix} {@kill message}" to attacker
+				if {@loose cash on death} is "yes", "true", "on" or "do":
+					remove {@how much should a player loose on death} from victim's balance
+				`	send "{@prefix} {@death message}" to attacker
+
+command /killcash [<text>]
+	aliases: /kcash, /kc, /killc, /killmoney, /moneykill, /cashkill
+	permission: none
+		trigger:
+			if arg-1 is reload:
+				if player has permission "killcash.reload":
+					execute console command "sk reload {@skript file name}"
+				else:
+					send "{@prefix} {@permission message}"
+			if arg-1 is "help":
+				if player has permission "killcash.help":
+					send "help-header"
+					send "help-line-1"
+					send "help-line-2"
+					send "help-line-3"
+					send "help-line-4"
+				else:
+					send "{@prefix} {@permission message}"
+			if arg-1 is "info":
+				send "&3&l&nKillCash"
+				send "&7"
+				send "&3&l* &fAuthor: &bBlueOrolose"
+				send "&3&l* &fVersion: &b{@version}"
+				send "&3&l* &fCommand: &b/KillCash Help"
+			else:
+				send "&3&l&nKillCash"
+				send "&7"
+				send "&3&l* &fAuthor: &bBlueOrolose"
+				send "&3&l* &fVersion: &b{@version}"
+				send "&3&l* &fCommand: &b/KillCash Help"
